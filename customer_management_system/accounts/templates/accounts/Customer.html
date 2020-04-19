@@ -1,0 +1,68 @@
+{% extends 'accounts/main.html'%}
+{% block body %}
+
+<!--Cusotmer info -->
+<div class="row" style="margin-top: 35px;"> 
+    <div class="col-6 col-md-4">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+            <h4>Customer</h4>
+            </div>
+            <div class="card-body">
+                <button class="btn btn-outline-success btn-block btn-sm" type="button">Update Customer</button>
+                <button class="btn btn-outline-danger btn-block btn-sm" type="button">Delete Customer</button>
+            </div>
+        </div>      
+    </div>
+
+    <div class="col-6 col-md-4">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+            <h4>Custoemr info</h4>
+            </div>
+            <div class="card-body">
+                <p>Email:</p>
+                <p>Phone:</p>
+
+            </div>
+        </div>     
+    </div>
+
+    <div class="col-6 col-md-4">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                    <h4>Total Orders</h4>
+            </div>
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div> 
+
+</div>
+<br>
+
+<!-- search --> 
+<div class="row" style="background-color: aqua; padding: 5px;">
+    <div class="col-12">
+        <button class="btn btn-primary">Search</button>
+    </div>
+</div>
+<br><br>
+<!-- end of search -->
+
+<div class="row">
+<div class="col-12" style="">
+    <h2 style="text-align: center;"></h2>
+    <table class="table">
+        <tr>
+            <th>Product</th>
+            <th>Date Order</th>
+            <th>Status</th>
+            <th>Update</th>
+            <th>Remove</th>
+        </tr>
+    </table>
+</div>
+
+{% endblock body %}

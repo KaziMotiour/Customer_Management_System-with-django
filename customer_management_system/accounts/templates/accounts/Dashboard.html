@@ -1,0 +1,81 @@
+{% extends 'accounts/main.html'%}
+
+
+
+{% block body %}
+
+<!--Total Order, Total Deliver, Total pending-->
+<div class="row" style="margin-top: 25px;"> 
+    <div class="col-6 col-md-4">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+            <h4>Total Order</h4>
+            </div>
+            <div class="card-body">
+
+            </div>
+
+        </div>
+        
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+            <h4>Order Delivered</h4>
+            </div>
+            <div class="card-body">
+
+            </div>
+
+        </div>
+        
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                    <h4>Order Pending</h4>
+            </div>
+            <div class="card-body">
+
+            </div>
+
+        </div>
+        
+    </div>
+    
+
+</div> 
+<!-- end of Total Order, Total Deliver, Total pending-->
+<br><br>
+
+<!-- Customer create, Order create-->
+<div class="row">  
+    <div class=" col-md-5" style="">
+        <h2 style="text-align: center;">Customers</h2><hr>
+        <button class="btn btn-success btn-block btn-sm">Create Customer</button>
+        <table class="table">
+            <tr>
+                <th>Customer</th>
+                <th>Order</th>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-7" style="">
+        <h2 style="text-align: center;">Last 5 Order</h2><hr>
+        <button class="btn btn-success btn-block btn-sm">Create Order</button>
+        <table class="table">
+            <tr>
+                <th>Product</th>
+                <th>Date Order</th>
+                <th>Status</th>
+                <th>Update</th>
+                <th>Remove</th>
+            </tr>
+        </table>
+    </div>
+
+</div> 
+<!--end of Customer create, Order create-->
+
+
+{% endblock body %}
