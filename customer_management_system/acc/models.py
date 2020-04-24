@@ -21,9 +21,12 @@ class Customer(models.Model):
 class Tag(models.Model):
     tag_name=models.CharField(max_length=250, null=True, blank=True)
 
+    def __str__(self):
+        return str(self.tag_name)
+
 class Product(models.Model):
     CATAGORY=(
-        ('indoor','indoor'),
+        ('Indoor','Indoor'),
         ('Out Door', 'Out Door')
     )
     name=models.CharField(max_length=250)
