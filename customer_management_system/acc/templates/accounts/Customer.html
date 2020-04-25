@@ -21,8 +21,8 @@
             <h4>Custoemr info</h4>
             </div>
             <div class="card-body">
-                <p>Email:</p>
-                <p>Phone:</p>
+                <p>Email: {{context.customer.email}}</p>
+                <p>Phone: {{context.customer.phone}}</p>
 
             </div>
         </div>     
@@ -34,7 +34,9 @@
                     <h4>Total Orders</h4>
             </div>
             <div class="card-body">
-
+                <h1 style="text-align: center;">{{ context.order.count }}</h1>
+                
+                <!-- {{context.customer.date_created}}-->
             </div>
         </div>
     </div> 
@@ -62,6 +64,15 @@
             <th>Update</th>
             <th>Remove</th>
         </tr>
+        {% for orders in context.order %}
+        <tr>
+            <td>{{orders.product.name}}</td>
+            <td>{{orders.date_created}}</td>
+            <td>{{orders.status}}</td>
+            <td>update</td>
+            <td>remove</td>
+        </tr>
+        {% endfor %}
     </table>
 </div>
 

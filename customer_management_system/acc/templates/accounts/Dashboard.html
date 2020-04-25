@@ -12,7 +12,8 @@
             <h4>Total Order</h4>
             </div>
             <div class="card-body">
-
+                <h1 style="text-align: center;">{{context.order.count }}</h1>
+                
             </div>
 
         </div>
@@ -24,6 +25,8 @@
             <h4>Order Delivered</h4>
             </div>
             <div class="card-body">
+                
+            <h1 style="text-align: center;">{{context.deliverd_order }}</h1>
 
             </div>
 
@@ -36,6 +39,8 @@
                     <h4>Order Pending</h4>
             </div>
             <div class="card-body">
+            <h1 style="text-align: center;">{{context.pending_order }}</h1>
+                
 
             </div>
 
@@ -50,20 +55,28 @@
 
 <!-- Customer create, Order create-->
 <div class="row">  
-    <div class=" col-md-5" style="">
+    <div class=" col-md-4" style="">
         <h2 style="text-align: center;">Customers</h2><hr>
         <button class="btn btn-success btn-block btn-sm">Create Customer</button>
         <table class="table">
             <tr>
                 <th>Customer</th>
-                <th>Order</th>
+                <th>Phone</th>
             </tr>
+            {% for customers in context.customer %}
+            <tr>
+                <td><a href="{%url 'accounts:customer' customers.id %}">{{customers.name}}</a></td>
+                <td>{{customers.phone}}</td>
+            </tr>
+            
+            {% endfor %}
         </table>
-    </div>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div class="col-md-7" style="">
         <h2 style="text-align: center;">Last 5 Order</h2><hr>
         <button class="btn btn-success btn-block btn-sm">Create Order</button>
         <table class="table">
+            
             <tr>
                 <th>Product</th>
                 <th>Date Order</th>
@@ -71,6 +84,15 @@
                 <th>Update</th>
                 <th>Remove</th>
             </tr>
+            {%for new_orders in context.last_5_orders%}
+            <tr>
+                <td>{{new_orders.product.name}}</td>
+                <td>{{new_orders.date_created}}</td>
+                <td>{{new_orders.status}}</td>
+                <td>Update</td>
+                <td>Remove</td>
+            </tr>
+            {% endfor%}
         </table>
     </div>
 
