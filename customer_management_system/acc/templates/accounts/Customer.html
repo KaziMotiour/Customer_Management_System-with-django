@@ -9,8 +9,33 @@
             <h4>Customer</h4>
             </div>
             <div class="card-body">
-                <button class="btn btn-outline-success btn-block btn-sm" style="color:black" type="button">Update Customer</button>
-                <button class="btn btn-outline-danger btn-block btn-sm" style="color:black" type="button">Delete Customer</button>
+            <a class="btn btn-outline-success btn-block btn-sm" style="color:black" href="{% url 'accounts:CustomerUpdate' pk=customer.id %}">Update Customer</a>
+            <button class="btn btn-outline-info btn-block btn-sm" data-toggle="modal" data-target="#nModal">Create Order</button>
+
+        <div class="modal" id="nModal" >
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 700px;">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title text-danger">create order</h4>
+                    </div>
+
+                    <form method="POST" class="form" style="width: 600px;">
+                    <div class="modal-body form-group">
+                        {% csrf_token %}
+                        {{formset.management_form}}
+                        {% for form in formset%}
+                        <ul>
+                            <li>{{form}}</li>
+                        </ul>
+                        {%endfor%}
+                        <button type="submit" class="btn btn-success">create customer</button>
+                    </div>
+                    </form>
+                </div>    
+            </div>
+        </div>        
+       
             </div>
         </div>      
     </div>
@@ -21,8 +46,8 @@
             <h4>Custoemr info</h4>
             </div>
             <div class="card-body">
-                <p>Email: {{context.customer.email}}</p>
-                <p>Phone: {{context.customer.phone}}</p>
+                <p>Email: {{customer.email}}</p>
+                <p>Phone: {{customer.phone}}</p>
 
             </div>
         </div>     
@@ -34,7 +59,7 @@
                     <h4>Total Orders</h4>
             </div>
             <div class="card-body">
-                <h1 style="text-align: center;">{{ context.order.count }}</h1>
+                <h1 style="text-align: center;">{{ order.count }}</h1>
                 
                 <!-- {{context.customer.date_created}}-->
             </div>
@@ -54,7 +79,7 @@
 <!-- end of search -->
 
 <div class="row">
-<div class="col-12" style="">
+<div class="col-12">
     <h2 style="text-align: center;"></h2>
     <table class="table">
         <tr>
@@ -64,7 +89,7 @@
             <th>Update</th>
             <th>Remove</th>
         </tr>
-        {% for orders in context.order %}
+        {% for orders in order %}
         <tr>
             <td>{{orders.product.name}}</td>
             <td>{{orders.date_created}}</td>

@@ -99,27 +99,7 @@
 
     <div class="col-md-7" style="">
         <h2 style="text-align: center;">Last 5 Order</h2><hr>
-        <button class="btn btn-success btn-block btn-sm" data-toggle="modal" data-target="#nModal">Create Order</button>
-
-        <div class="modal" id="nModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h4 class="modal-title text-danger">create order</h4>
-                    </div>
-
-                    <form method="POST" class="form">
-                    <div class="modal-body form-group">
-                        {% csrf_token %}
-                        {{form | crispy}}<br>
-                        <button type="submit" class="btn btn-success">create customer</button>
-                    </div>
-                    </form>
-                </div>    
-            </div>
-        </div>        
-       
+        
        
         <table class="table">
             

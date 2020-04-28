@@ -1,0 +1,11 @@
+{% extends 'accounts/main.html'%}
+{% load crispy_forms_tags %}
+{% block body %}
+<p>You want to delete the customer {{customer}} ?</p>
+<form method="POST" action="{%url 'accounts:CustomerDelete' pk=customer.pk %}">
+{% csrf_token%}
+<a href="{%url 'accounts:customer' pk=customer.pk %}">cancle</a>
+<input type="submit" value="Delete">
+</form>
+
+{% endblock body %}

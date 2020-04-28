@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.http import HttpResponse
 from .models import Customer, Product, Order
 from .forms import OrderForm, CustomerForm
+from django.forms import inlineformset_factory
 
 def home(request):
     last_5_order = Order.objects.filter().order_by('-date_created')[:5]
@@ -11,13 +13,7 @@ def home(request):
     order_deliverd=Order.objects.filter(status='Delivered').count()
     order_pending=Order.objects.filter(status='pending').count()
     
-    form=OrderForm() # order create form
-    if request.method == 'POST':
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-
+    
     cusotmerForm=CustomerForm() # Cusotmer creat form
     if request.method == 'POST':
         cusotmerForm = CustomerForm(request.POST)
@@ -32,29 +28,12 @@ def home(request):
         'deliverd_order':order_deliverd,
         'pending_order':order_pending,
         'last_5_orders':last_5_order,
-        'form':form,
         'cusotmerForm':cusotmerForm
         
     }
 
     return render(request, 'accounts/Dashboard.html',context) 
 
-
-def customer(request,pk):
-    queryset=Customer.objects.get(pk=pk)
-    order = queryset.customer.all()
-    context={
-        'customer':queryset,
-        'order':order,
-
-    }
-    return render(request,'accounts/Customer.html',{'context':context})
-
-
-def product(request):
-
-    queryset=Product.objects.all()
-    return render(request, 'accounts/Product.html',{'context':queryset})
 
 
 def update_order(request,pk):
@@ -76,3 +55,61 @@ def delete_order(request, pk):
         return redirect('/')
     context={'item':orders}
     return render(request, 'accounts/Delete_order.html', context)
+
+
+
+
+def customer(request,pk):
+
+    OrderFormSet=inlineformset_factory(Customer, Order, fields=('product','status'),extra=5)
+
+    queryset=Customer.objects.get(pk=pk)
+    order = queryset.customer.all()
+
+    # form=OrderForm(initial={'coustomer':queryset}) # order create form
+    formset=OrderFormSet(queryset=Order.objects.none(), instance=queryset)
+    if request.method == 'POST':
+        formset = OrderFormSet(request.POST, instance=queryset)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/customer/'+pk)
+
+    context={
+        'customer':queryset,
+        'order':order,
+        'formset':formset,
+
+    }
+    return render(request,'accounts/Customer.html',context)
+
+
+def update_customer(request,pk):
+    customer=Customer.objects.get(pk=pk)
+    customer_form=CustomerForm(instance=customer)
+    if request.method=="POST":
+        customer_form=CustomerForm(request.POST, instance=customer)
+        if customer_form.is_valid():
+            customer_form.save()
+            return redirect('/customer/'+pk)
+
+    context={
+        'customer_form':customer_form
+        }
+    
+    return render(request,'accounts/Customer_Update.html',context)
+
+def delete_customer(request, pk):
+    customer = Customer.objects.get(pk=pk)
+    if request.method=="POST":
+        customer.delete()
+        return redirect("/")
+    context={'customer':customer}
+    return render(request,'accounts/Customer_Delete.html',context)
+
+
+
+def product(request):
+
+    queryset=Product.objects.all()
+    return render(request, 'accounts/Product.html',{'context':queryset})
+
