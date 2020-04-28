@@ -49,9 +49,9 @@ class Order(models.Model):
     )
     coustomer=models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer')
     product=models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
-    date_created=models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    date_created=models.DateTimeField(auto_now_add=True,)
     status=models.CharField(max_length=250, null=True, choices=STATUS)
 
     def __str__(self):
-        return str(self.status)
+        return str(self.product.name)
     

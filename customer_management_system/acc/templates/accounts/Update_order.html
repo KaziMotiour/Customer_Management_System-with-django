@@ -1,0 +1,25 @@
+{% extends 'accounts/main.html'%}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="container" style="text-align: center;">
+    <h1>Update Order</h1><br> <hr>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">Customer</label>
+          {{form.coustomer}}
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Product</label>
+          {{form.product}}
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">status</label>
+            {{form.status}}
+          </div>
+       
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+      
+
+</div>
+{% endblock body%}

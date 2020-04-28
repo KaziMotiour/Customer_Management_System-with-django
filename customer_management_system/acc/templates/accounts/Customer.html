@@ -69,8 +69,9 @@
             <td>{{orders.product.name}}</td>
             <td>{{orders.date_created}}</td>
             <td>{{orders.status}}</td>
-            <td>update</td>
-            <td>remove</td>
+            <td><a href="{% url 'accounts:UpdateOrder' pk=orders.id %}">Update</a></td>
+            <td><a href="{% url 'accounts:DeleteOrder' pk=orders.id %}">Remove</a></td>
+            
         </tr>
         {% endfor %}
     </table>
