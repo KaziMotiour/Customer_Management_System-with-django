@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block body %}
 <p>You want to delete  {{item}} item?</p>
-<form method="POST" action="{%url 'accounts:DeleteOrder' pk=item.pk %}">
+<form method="POST" data-id='hello' action="{%url 'accounts:DeleteOrder' pk=item.pk %}">
 {% csrf_token%}
 <a href="{%url 'accounts:home'%}">cancle</a>
 <input type="submit" value="Delete">

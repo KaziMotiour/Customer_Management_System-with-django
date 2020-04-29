@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import Customer, Product, Order
 from .forms import OrderForm, CustomerForm
 from django.forms import inlineformset_factory
+from .filter import OrderFilter
 
 def home(request):
     last_5_order = Order.objects.filter().order_by('-date_created')[:5]
@@ -74,10 +75,14 @@ def customer(request,pk):
             formset.save()
             return redirect('/customer/'+pk)
 
+    serach_order = OrderFilter(request.GET, queryset=order)
+    order = serach_order.qs
+
     context={
         'customer':queryset,
         'order':order,
         'formset':formset,
+        'serach_order':serach_order
 
     }
     return render(request,'accounts/Customer.html',context)
