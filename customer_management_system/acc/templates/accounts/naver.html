@@ -15,4 +15,13 @@
        
       </ul>
     </div>
+    {% if  request.user.is_authenticated %}
+
+  <span > <a href="{%url 'accounts:customer' pk=request.user.id%}" style="color: white;">hello, {{request.user}}</a></span>
+  <span><a class="nav-link" href="{%url 'accounts:logout' %}">logout</a></span>
+    {% else %}
+    <span > <a href="{%url 'accounts:registration'%}" style="color: white; padding-right:5px ;">Reistration</a></span> <span style="color: brown;">or</span> 
+    <span > <a href="{%url 'accounts:login'%}" style="color: white; padding-left:5px ;" >login</a></span>
+{%endif %}
   </nav>
+
