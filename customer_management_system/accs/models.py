@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -22,12 +23,13 @@ class Customer(models.Model):
     def __str__(self):
         return str(self.user)
 
+@receiver(post_save, sender=User)
 def customer_save_user_instance(sender,instance,created, *args, **kwargs):
     print(instance)
     if created:
-        new_profile=Customer.objects.get_or_create(user=instance)
-
-post_save.connect(customer_save_user_instance, sender=settings.AUTH_USER_MODEL)
+        new_profile=Customer.objects.get_or_create(
+            user=instance, name='bla bla', email=instance.email
+            )
 
 class Tag(models.Model):
     tag_name=models.CharField(max_length=250, null=True, blank=True)
@@ -42,7 +44,7 @@ class Product(models.Model):
     )
     name=models.CharField(max_length=250)
     price=models.CharField(max_length=250, null=True,blank=True)
-    category=models.CharField(max_length=250, null=True, blank=True, choices=CATAGORY)
+    category=models.CharField(max_length=250, null=True, blank=True, choices=CATAGORY, default='indoor')
     description=models.CharField(max_length=500, null=True, blank=True)
     product_pic=models.ImageField(upload_to='profile_pic', null=True, blank=True)
     tag_name=models.ManyToManyField(Tag)
@@ -61,7 +63,7 @@ class Order(models.Model):
     coustomer=models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer')
     product=models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
     date_created=models.DateTimeField(auto_now_add=True,)
-    status=models.CharField(max_length=250, null=True, choices=STATUS)
+    status=models.CharField(max_length=250, null=True, choices=STATUS,default='pending')
 
     def __str__(self):
         return str(self.product.name)

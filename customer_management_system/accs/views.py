@@ -6,7 +6,7 @@ from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.http import HttpResponse
 from .models import Customer, Product, Order
-from .forms import OrderForm, CustomerForm, UserRegistrationForm
+from .forms import OrderForm, CustomerForm, UserRegistrationForm, AddProduct
 from django.forms import inlineformset_factory
 from .filter import OrderFilter
 from django.contrib.auth.forms import UserCreationForm
@@ -29,6 +29,7 @@ def registration(request):
           group = Group.objects.get(name='customer')
           user.groups.add(group)
           username=form.cleaned_data.get('username')
+          
           messages.success(request, 'Registration Complete for '+username)
           return redirect("/login")
       else: #invalid case
@@ -63,10 +64,10 @@ def logout(request):
 
 
 
-@login_required(login_url='accounts:login')
+@login_required(login_url='/product')
 @allow_user(allowed_user=['admin'])
 def home(request):
-    last_5_order = Order.objects.filter().order_by('-date_created')[:5]
+    last_5_order = Order.objects.filter(status='pending').order_by('-date_created')[:5]
     total_order= Order.objects.all()
     customer = User.objects.all()
     order_deliverd=Order.objects.filter(status='Delivered').count()
@@ -124,7 +125,7 @@ def delete_order(request, pk):
 @login_required(login_url='accounts:login')
 def customer(request,pk):
 
-    OrderFormSet=inlineformset_factory(Customer, Order, fields=('product','status'),extra=5)
+    OrderFormSet=inlineformset_factory(Customer, Order, fields=('product',),extra=5)
 
     queryset=User.objects.get(pk=pk)
     order = queryset.customer.customer.all()
@@ -182,5 +183,17 @@ def delete_customer(request, pk):
 def product(request):
 
     queryset=Product.objects.all()
-    return render(request, 'accounts/Product.html',{'context':queryset})
+    form=AddProduct()
+    if request.method=="POST":
+        form=AddProduct(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/product')
+
+    context={
+        'queryset':queryset,
+        'form':form,
+    }
+
+    return render(request, 'accounts/Product.html',context)
 

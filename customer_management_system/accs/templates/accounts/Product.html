@@ -1,4 +1,5 @@
 {% extends 'accounts/main.html'%}
+{% load crispy_forms_tags %}
 {%block body%}
 <div class="row" style="margin-top: 25px;"> 
     <div class="col-12 col-md-12">
@@ -7,6 +8,31 @@
             <h4>Products</h4>
             </div>
             <div class="card-body">
+                {% if  request.user.is_staff %}
+                <button class="btn btn-success btn-block btn-sm" data-toggle="modal" data-target="#pModal">Add Product</button>
+                {% endif %}
+                <div class="modal" id="pModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+        
+                            <div class="modal-header">
+                                
+                                <h4 class="modal-title text-danger">Add Product</h4>
+                                
+                            </div>
+        
+                            <form method="POST" class="form">
+                            <div class="modal-body form-group">
+                                {% csrf_token %}
+                                {{ form | crispy }}<br>
+                                <button type="submit" class="btn btn-success">add</button>
+                            </div>
+                            </form>
+                            
+                        </div>    
+                    </div>
+                </div>    
+        
                 <table class="table">
                     <tr>
                         <th>Product</th>
@@ -14,7 +40,7 @@
                         <th>Price</th>
 
                     </tr>
-                    {% for product in context%}
+                    {% for product in queryset%}
                     <tr>
                         <td>{{product.name}}</td>
                         <td>{{product.category}}</td>
