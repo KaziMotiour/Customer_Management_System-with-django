@@ -21,7 +21,7 @@
                                 
                             </div>
         
-                            <form method="POST" class="form">
+                            <form method="POST" class="form"  enctype="multipart/form-data">
                             <div class="modal-body form-group">
                                 {% csrf_token %}
                                 {{ form | crispy }}<br>
@@ -35,6 +35,7 @@
         
                 <table class="table">
                     <tr>
+                        <th>Image</th>
                         <th>Product</th>
                         <th>Catagory</th>
                         <th>Price</th>
@@ -42,7 +43,8 @@
                     </tr>
                     {% for product in queryset%}
                     <tr>
-                        <td>{{product.name}}</td>
+                           
+                        <td>{% if product.product_pic %}<a href="{{product.product_pic.url}}"><img style="height: 30px; width: 30px; border-radius: 40%;" src="{{product.product_pic.url}}"></a>{% endif %}&nbsp;&nbsp;{{product.name}}</td>
                         <td>{{product.category}}</td>
                         <td>{{product.price}}</td>
 

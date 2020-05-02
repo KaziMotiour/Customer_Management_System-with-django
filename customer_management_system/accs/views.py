@@ -185,7 +185,7 @@ def product(request):
     queryset=Product.objects.all()
     form=AddProduct()
     if request.method=="POST":
-        form=AddProduct(request.POST)
+        form=AddProduct(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/product')

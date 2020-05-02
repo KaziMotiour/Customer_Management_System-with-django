@@ -17,7 +17,7 @@
        
       </ul>
     </div>
-    {% if  request.user.is_authenticated %}
+    {% if request.user.is_authenticated %}
 
   <span > <a href="{%url 'accounts:customer' pk=request.user.id%}" style="color: white;">hello, {{request.user}}</a></span>
   <span><a class="nav-link" href="{%url 'accounts:logout' %}">logout</a></span>
