@@ -45,7 +45,7 @@ class Product(models.Model):
     price=models.CharField(max_length=250, null=True,blank=True)
     category=models.CharField(max_length=250, null=True, blank=True, choices=CATAGORY, default='indoor')
     description=models.CharField(max_length=500, null=True, blank=True)
-    product_pic=models.ImageField(upload_to='profile_pic', null=True, blank=True)
+    product_pic=models.ImageField(upload_to='images', null=True, blank=True)
     tag_name=models.ManyToManyField(Tag)
     create_date=models.DateTimeField(auto_now_add=True, null=True)
 
