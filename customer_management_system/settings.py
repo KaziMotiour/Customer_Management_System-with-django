@@ -141,7 +141,7 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR, 'static')
 ]
 
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 
 CORS_ALLOW_ALL_ORIGINS = True
