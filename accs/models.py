@@ -14,7 +14,7 @@ class Customer(models.Model):
     name=models.CharField(max_length=250, null=True, blank=True)
     email=models.CharField(max_length=250 ,null=True, blank=True)
     phone=models.CharField(max_length=250, null=True, blank=True)
-    profile_pic=models.ImageField(upload_to='profile_pic', null=True, blank=True)
+    profile_pic=models.ImageField(upload_to='images', null=True, blank=True)
  
     create_date=models.DateTimeField(auto_now_add=True, null=True,  blank=True)
 
