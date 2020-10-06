@@ -26,7 +26,7 @@ SECRET_KEY = 's_mgsszej4*j=hid7d&+xvw(1y_p9_wsf9#dxj0f(**g0g*5hg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kazimotiour-djanog-cms-apps.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['kazimotiour-django-cms-apps.herokuapp.com','127.0.0.1']
 
 
 # Application definition
