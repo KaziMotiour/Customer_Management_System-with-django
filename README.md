@@ -12,6 +12,9 @@ https://kazimotiour-djangoo-cms-app.herokuapp.com/
 * Bootstrap
 ## Back-end
 * Postgresql
+## Project Images
+![](images/CMS1.PNG)
+
 
 
 
