@@ -1,6 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone

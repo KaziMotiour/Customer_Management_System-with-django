@@ -7,7 +7,7 @@ def unauthorize_user(view_func):
             return redirect('/')
         else:
             return view_func(request, *args, **kwargs)
-
+  
     return wrapper_func
 
 def allow_user(allowed_user=[]):
